@@ -14,9 +14,11 @@ jobs:
     steps:
       # This is to clone the current repo
       - uses: actions/checkout@v3
+        with:
+          path: 'target4art'
       - run: |
           # Save the current dir for latter commit
-          CURRENT_DIR="$pwd/${{ github.repository }}"
+          CURRENT_DIR="$GITHUB_WORKSPACE/target4art"
           echo $CURRENT_DIR
           # The previous step clones this repo, just go out of the folder to not mess up two repos in the same place
           cd /
