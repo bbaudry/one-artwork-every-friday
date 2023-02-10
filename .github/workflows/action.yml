@@ -6,7 +6,7 @@ on:
       # We are saving the cool results here, lets prevent this action to trigger if something is added here. Otherwise this will run forever
 #      - '!art/**'
   schedule:
-    - cron:  "53 10 * * 5" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
+    - cron:  "42 00 * * 5" #generate ascii art every Friday  (5th day of the week) at 00:42 UTC (GH actions are on UTC time).
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: 'target4art'
-      - run: |
+      - name: clone
+        run: |
           # Save the current dir for latter commit
           CURRENT_DIR="$GITHUB_WORKSPACE/target4art"
           echo $CURRENT_DIR
@@ -30,13 +31,16 @@ jobs:
           cd /
           sudo git clone https://github.com/bbaudry/gen-art-action.git gen-art-folder
           sudo chown $USER:$USER gen-art-folder
+      - name: gen-art
+        run: |  
           cd gen-art-folder
           bash ./cool-genart.sh
           # COPY the cool result to this repo folder
           sudo mkdir -p $CURRENT_DIR/art/
-          sudo cp friday.art $CURRENT_DIR/art/friday-$RANDOM-$(date+'%Y-%m-%d').art
+          sudo cp friday.art $CURRENT_DIR/art/friday-$RANDOM-$(date +'%Y-%m-%d').art
           cd $CURRENT_DIR
-          
+      - name: push-art
+        run: |
           # Then commit the new art
           git config --global user.email "almyre@gmail.com"
           git config --global user.name "almyre"
