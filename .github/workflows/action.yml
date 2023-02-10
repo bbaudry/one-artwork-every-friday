@@ -1,10 +1,13 @@
 name: Art job
 # This workflow is triggered on pushes to the repository.
 on: 
-  push:
-    path:
+#  push:
+#    path:
       # We are saving the cool results here, lets prevent this action to trigger if something is added here. Otherwise this will run forever
-      - '!art/**'
+#      - '!art/**'
+  schedule:
+    - cron:  "20 11 * * 5" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
+
 
 jobs:
   build:
