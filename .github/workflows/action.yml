@@ -21,6 +21,7 @@ jobs:
           # The previous step clones this repo, just go out of the folder to not mess up two repos in the same place
           cd /
           sudo git clone https://github.com/bbaudry/gen-art-action.git gen-art-folder
+          chown $USER:$USER gen-art-folder
           cd gen-art-folder
           bash ./cool-genart.sh
           # COPY the cool result to this repo folder
