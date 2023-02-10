@@ -37,4 +37,4 @@ jobs:
           git config --global user.name "almyre"
           git add art/
           git commit -m "New art added"
-          git push --force
+          sudo git push --force
