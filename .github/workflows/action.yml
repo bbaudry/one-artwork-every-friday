@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # This is to clone the current repo
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: |
           # Save the current dir for latter commit
-          CURRENT_DIR="$pwd"
+          CURRENT_DIR="$pwd/${{ github.repository }}"
           echo $CURRENT_DIR
           # The previous step clones this repo, just go out of the folder to not mess up two repos in the same place
           cd /
