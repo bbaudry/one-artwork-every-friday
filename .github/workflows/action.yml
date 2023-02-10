@@ -33,6 +33,8 @@ jobs:
           cd $CURRENT_DIR
           
           # Then commit the new art
+          git config --global user.email "almyre@gmail.com"
+          git config --global user.name "almyre"
           git add art/
           git commit -m "New art added"
           git push --force
