@@ -35,7 +35,7 @@ jobs:
           bash ./cool-genart.sh
           # COPY the cool result to this repo folder
           sudo mkdir -p $CURRENT_DIR/art/
-          sudo cp friday.art $CURRENT_DIR/art/friday-$RANDOM-$(date +'%Y-%m-%d').art
+          sudo cp friday.art $CURRENT_DIR/art/friday-$(date +'%Y-%m-%d').art
           cd $CURRENT_DIR
           # Then commit the new art
           git config --global user.email "almyre@gmail.com"
