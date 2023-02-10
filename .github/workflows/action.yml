@@ -25,9 +25,9 @@ jobs:
           cd gen-art-folder
           bash ./cool-genart.sh
           # COPY the cool result to this repo folder
-          mkdir -p $CURRENT_DIR/art/
+          sudo mkdir -p $CURRENT_DIR/art/
           git_hash=$(git rev-parse --short HEAD)
-          cp friday.art $CURRENT_DIR/art/friday$git_hash.art
+          sudo cp friday.art $CURRENT_DIR/art/friday$git_hash.art
           cd $CURRENT_DIR
           
           # Then commit the new art
