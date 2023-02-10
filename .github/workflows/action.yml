@@ -1,12 +1,12 @@
 name: Art job
 # This workflow is triggered on pushes to the repository.
 on: 
-  push:
-    path:
+#  push:
+#    path:
       # We are saving the cool results here, lets prevent this action to trigger if something is added here. Otherwise this will run forever
-      - '!art/**'
-#  schedule:
-#    - cron:  "24 10 * * 5" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
+#      - '!art/**'
+  schedule:
+    - cron:  "40 10 * * 5" #build project on the 15th day of every month on the 42nd minute of the 7th hour.
 
 
 jobs:
@@ -34,8 +34,7 @@ jobs:
           bash ./cool-genart.sh
           # COPY the cool result to this repo folder
           sudo mkdir -p $CURRENT_DIR/art/
-          git_hash=$(git rev-parse --short HEAD)
-          sudo cp friday.art $CURRENT_DIR/art/friday$git_hash.art
+          sudo cp friday.art $CURRENT_DIR/art/friday-$RANDOM-$(date+'%Y-%m-%d').art
           cd $CURRENT_DIR
           
           # Then commit the new art
