@@ -1,0 +1,35 @@
+name: Art job
+# This workflow is triggered on pushes to the repository.
+on: 
+  push:
+    path:
+      # We are saving the cool results here, lets prevent this action to trigger if something is added here. Otherwise this will run forever
+      - '!art/**'
+
+jobs:
+  build:
+    name: Do art
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      # This is to clone the current repo
+      - uses: actions/checkout@v2
+      - run: |
+          # Save the current dir for latter commit
+          CURRENT_DIR="$pwd"
+          echo $CURRENT_DIR
+          # The previous step clones this repo, just go out of the folder to not mess up two repos in the same place
+          cd /
+          git clone git@github.com:bbaudry/gen-art-action.git gen-art-folder
+          cd gen-art-folder
+          bash ./cool-genart.sh
+          # COPY the cool result to this repo folder
+          mkdir -p $CURRENT_DIR/art/
+          git_hash=$(git rev-parse --short HEAD)
+          cp friday.art $CURRENT_DIR/art/friday$git_hash.art
+          cd $CURRENT_DIR
+          
+          # Then commit the new art
+          git add art/
+          git commit -m "New art added"
+          git push --force
